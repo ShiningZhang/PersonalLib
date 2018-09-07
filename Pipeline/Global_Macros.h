@@ -3,10 +3,28 @@
 
 #pragma once
 
-#define LOGI(X) printf(X)
-#define LOGD(X) printf(X)
-#define SP_TRACE(X) printf(X)
+#define SP_TRACE_SWITCH 0
 
+#ifdef __ANDROID__
+#include <android/log.h>
+
+#  define TAG "SP_STREAM"
+#  define SP_LOGI(...) __android_log_print(ANDROID_LOG_INFO,TAG ,__VA_ARGS__)
+#  define SP_LOGE(...) __android_log_print(ANDROID_LOG_ERROR,TAG ,__VA_ARGS__)
+#  if (SP_TRACE_SWITCH == 1)
+#    define SP_TRACE(...) __android_log_print(ANDROID_LOG_INFO,TAG ,__VA_ARGS__)
+#  else
+#    define SP_TRACE(...)
+#  endif
+#else
+#  define SP_LOGI(X) printf(X)
+#  define SP_LOGE(X) printf(X)
+#  if (SP_TRACE_SWITCH == 1)
+#    define SP_TRACE(X) printf(X)
+#  else
+#    define SP_TRACE(X)
+#  endif
+#endif
 
 // ----------------------------------------------------------------
 
@@ -45,6 +63,15 @@
       } \
    while (0)
 
+# define SP_DES_ARRAY(POINTER) \
+      do { \
+           if (POINTER) \
+             { \
+               delete[] (POINTER); \
+               POINTER = 0; \
+             } \
+         } \
+      while (0)
 
 
 #endif // !GLOBAL_MACROS_H

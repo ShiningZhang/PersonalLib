@@ -26,15 +26,15 @@ public:
     int dequeue(SP_Message_Block_Base *&);
     bool is_full();
     bool is_empty();
-    void flush();
-    void close();
+    int flush();
+    int close();
     void open();
 protected:
     int enqueue_i(SP_Message_Block_Base *);
     int dequeue_i(SP_Message_Block_Base *&);
     bool is_full_i();
     bool is_empty_i();
-    void flush_i();
+    int flush_i();
 
 private:
     SP_Message_Queue(const SP_Message_Queue &) = delete;

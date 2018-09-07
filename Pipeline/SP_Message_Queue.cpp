@@ -80,15 +80,15 @@ bool SP_Message_Queue::is_empty()
     return this->is_empty_i();
 }
 
-void SP_Message_Queue::flush()
+int SP_Message_Queue::flush()
 {
     SP_TRACE("SP_Message_Queue::flush\n");
 
     std::lock_guard<std::mutex> lock(this->mutex_);
-    this->flush_i();
+    return this->flush_i();
 }
 
-    void SP_Message_Queue::close()
+int SP_Message_Queue::close()
 {
     SP_TRACE("SP_Message_Queue::close\n");
 
@@ -99,7 +99,7 @@ void SP_Message_Queue::flush()
         this->not_full_cond_.notify_all();
         this->state_ = DEACTIVATED;
     }
-    this->flush_i();
+    return this->flush_i();
 }
 
 void SP_Message_Queue::open()
@@ -174,7 +174,7 @@ bool SP_Message_Queue::is_empty_i()
     return this->tail_ == 0;
 }
 
-void SP_Message_Queue::flush_i()
+int SP_Message_Queue::flush_i()
 {
     SP_TRACE("SP_Message_Queue::flush_i\n");
 
@@ -186,4 +186,5 @@ void SP_Message_Queue::flush_i()
         temp->delete_data(true);
         SP_DES(temp);
     }
+    return this->cur_count_ == 0;
 }

@@ -22,21 +22,22 @@ SP_Module::~SP_Module()
     SP_DES(msg_queue_);
 }
 
-void SP_Module::open()
+int SP_Module::open()
 {
     SP_TRACE("SP_Module::open\n");
-
+    return 0;
 }
 
-void SP_Module::close()
+int SP_Module::close()
 {
     SP_TRACE("SP_Module::close\n");
-
+    int result = 0;
     if (msg_queue_ != 0)
     {
-        msg_queue_->close();
+        result = msg_queue_->close();
     }
     this->wait();
+    return result;
 }
 
 void SP_Module::activate(int n_threads /* = 1 */)

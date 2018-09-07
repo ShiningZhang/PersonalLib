@@ -12,9 +12,9 @@ public:
     SP_Stream();
     virtual ~SP_Stream();
     virtual void push(SP_Module *);
-    virtual void pop();
-    virtual void push_module(SP_Module *);
-    virtual void close();
+    virtual int pop();
+    virtual int push_module(SP_Module *);
+    virtual int close();
     virtual void open();
     virtual int put(SP_Message_Block_Base *);
     virtual int get(SP_Message_Block_Base *&);

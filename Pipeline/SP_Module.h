@@ -5,6 +5,7 @@
 
 #include <mutex>
 #include <vector>
+#include <thread>
 
 class SP_Message_Queue;
 class SP_Message_Block_Base;
@@ -14,8 +15,8 @@ class SP_Module
 public:
     SP_Module();
     virtual ~SP_Module();
-    virtual void open();
-    virtual void close();
+    virtual int open();
+    virtual int close();
     virtual void activate(int n_threads = 1);
     virtual void wait();
     virtual void svc();
