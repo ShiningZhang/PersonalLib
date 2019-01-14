@@ -3,6 +3,7 @@
 
 #pragma once
 
+#define SP_DEBUG_SWITCH 0
 #define SP_TRACE_SWITCH 0
 
 #ifdef __ANDROID__
@@ -17,12 +18,17 @@
 #    define SP_TRACE(...)
 #  endif
 #else
-#  define SP_LOGI(X) printf(X)
-#  define SP_LOGE(X) printf(X)
+#  define SP_LOGI(...) printf(__VA_ARGS__)
+#  define SP_LOGE(...) printf(__VA_ARGS__)
 #  if (SP_TRACE_SWITCH == 1)
-#    define SP_TRACE(X) printf(X)
+#    define SP_TRACE(...) printf(__VA_ARGS__)
 #  else
-#    define SP_TRACE(X)
+#    define SP_TRACE(...)
+#  endif
+#  if (SP_DEBUG_SWITCH == 1)
+#    define SP_DEBUG(...) printf(__VA_ARGS__)
+#  else
+#    define SP_DEBUG(...)
 #  endif
 #endif
 

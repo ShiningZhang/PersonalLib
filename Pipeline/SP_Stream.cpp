@@ -5,13 +5,13 @@ SP_Stream::SP_Stream()
     :head_(0),
     tail_(0)
 {
-    SP_LOGI("SP_Stream: SP_Stream()\n");
+    SP_TRACE("SP_Stream: SP_Stream()\n");
     this->open();
 }
 
 SP_Stream::~SP_Stream()
 {
-    SP_LOGI("SP_Stream: ~SP_Stream()\n");
+    SP_TRACE("SP_Stream: ~SP_Stream()\n");
 }
 
 void SP_Stream::push(SP_Module *module)
