@@ -183,7 +183,6 @@ int SP_Message_Queue::flush_i()
         --this->cur_count_;
         SP_Message_Block_Base *temp = this->head_;
         this->head_ = this->head_->next();
-        temp->delete_data(true);
         SP_DES(temp);
     }
     return this->cur_count_ == 0;
